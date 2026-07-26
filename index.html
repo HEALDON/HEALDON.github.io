@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nether Agent</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="nether-bg">
+        <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+        <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+        <div class="lava-crack"></div>
+        <div class="glow-orb"></div>
+    </div>
+
+    <!-- Loading -->
+    <div id="loading" class="screen active">
+        <div class="loader-ring"></div>
+        <p class="loader-text">در حال اتصال...</p>
+    </div>
+
+    <!-- Access Denied / Advertisement -->
+    <div id="adScreen" class="screen">
+        <div class="ad-container">
+            <div class="ad-logo">🌋</div>
+            <h1 class="ad-title">Nether Agent</h1>
+            <p class="ad-subtitle">دستیار هوشمندِ خودکارِ مدیریت کانال</p>
+            
+            <div class="ad-features">
+                <div class="ad-feature">
+                    <span class="ad-icon">🤖</span>
+                    <div>
+                        <h3>هوش مصنوعی Agentic</h3>
+                        <p>جمع‌آوری خودکار اخبار، تولید پست با AI، انتشار هوشمند</p>
+                    </div>
+                </div>
+                <div class="ad-feature">
+                    <span class="ad-icon">📡</span>
+                    <div>
+                        <h3>منابع نامحدود</h3>
+                        <p>RSS، Reddit، وبسایت، mcpedl و Modrinth — کاملاً ایزوله</p>
+                    </div>
+                </div>
+                <div class="ad-feature">
+                    <span class="ad-icon">🌐</span>
+                    <div>
+                        <h3>آینه‌ی روبیکا</h3>
+                        <p>ربات تلگرام شما به‌عنوان آینه‌ی کامل در روبیکا هم کار می‌کنه</p>
+                    </div>
+                </div>
+                <div class="ad-feature">
+                    <span class="ad-icon">🖼</span>
+                    <div>
+                        <h3>واترمارک خودکار</h3>
+                        <p>اعمال واترمارک روی تمام تصاویر — تلگرام و روبیکا</p>
+                    </div>
+                </div>
+                <div class="ad-feature">
+                    <span class="ad-icon">🧠</span>
+                    <div>
+                        <h3>یادگیری از بازخورد</h3>
+                        <p>ربات سلیقه‌ی شما رو یاد می‌گیره و اعمال می‌کنه</p>
+                    </div>
+                </div>
+                <div class="ad-feature">
+                    <span class="ad-icon">🎮</span>
+                    <div>
+                        <h3>ماد و Add-on</h3>
+                        <p>ساخت پست از Modrinth و mcpedl با فایل ماد</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ad-cta">
+                <p class="ad-price">برای دسترسی به این قابلیت‌ها، اشتراک فعال لازمه.</p>
+                <a href="https://t.me/NetherAgentBot" class="btn-primary">📱 دریافت اشتراک</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="dashboard" class="screen">
+        <!-- Top Bar -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <span class="logo-small">🌋</span>
+                <span class="topbar-title">Nether Agent</span>
+            </div>
+            <div class="topbar-right">
+                <span class="status-dot" id="statusDot"></span>
+                <span class="status-text" id="statusText">—</span>
+            </div>
+        </header>
+
+        <!-- Tab Navigation -->
+        <nav class="nav-tabs">
+            <button class="nav-tab active" data-tab="ai">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/><path d="M12 8v8M8 12h8"/></svg>
+                <span>هوش مصنوعی</span>
+            </button>
+            <button class="nav-tab" data-tab="sources">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
+                <span>منابع</span>
+            </button>
+            <button class="nav-tab" data-tab="channel">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M17 2l-5 4-5-4"/></svg>
+                <span>کانال</span>
+            </button>
+            <button class="nav-tab" data-tab="rubika">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg>
+                <span>روبیکا</span>
+            </button>
+        </nav>
+
+        <div class="content-area">
+            <!-- AI Tab -->
+            <div id="tab-ai" class="tab-panel active">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">🤖</span>
+                        <h3>Provider</h3>
+                    </div>
+                    <select id="ai_provider" class="field">
+                        <option value="openrouter">OpenRouter (رایگان)</option>
+                        <option value="gemini">Gemini (رایگان)</option>
+                        <option value="deepseek">DeepSeek</option>
+                        <option value="openmodel">OpenModel</option>
+                    </select>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">🔑</span>
+                        <h3>API Key</h3>
+                    </div>
+                    <input type="password" id="ai_api_key" class="field" placeholder="کلید API">
+                    <p class="field-hint" id="api_key_hint">—</p>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">🧠</span>
+                        <h3>مدل</h3>
+                    </div>
+                    <input type="text" id="ai_model" class="field" placeholder="نام مدل">
+                    <p class="field-hint">مثال: google/gemma-2-9b-it:free</p>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">✍️</span>
+                        <h3>امضا</h3>
+                    </div>
+                    <textarea id="signature" class="field" rows="2" placeholder="🌋 > @MyChannel"></textarea>
+                </div>
+            </div>
+
+            <!-- Sources Tab -->
+            <div id="tab-sources" class="tab-panel">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">📡</span>
+                        <h3>افزودن منابع</h3>
+                    </div>
+                    <p class="field-hint">هر لینک در یک خط — با https:// شروع بشه</p>
+                    <textarea id="sources_list" class="field" rows="6" placeholder="https://feeds.ign.com/ign/all&#10;https://reddit.com/r/gaming&#10;https://mcpedl.com/"></textarea>
+                    <button class="btn-secondary" onclick="addSources()">➕ افزودن</button>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">📋</span>
+                        <h3>منابع فعلی</h3>
+                    </div>
+                    <div id="current_sources" class="sources-list"></div>
+                </div>
+            </div>
+
+            <!-- Channel Tab -->
+            <div id="tab-channel" class="tab-panel">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">📺</span>
+                        <h3>کانال تلگرام</h3>
+                    </div>
+                    <input type="text" id="channel_id" class="field" placeholder="@MyChannel">
+                </div>
+                <div class="card toggle-card">
+                    <div class="card-header">
+                        <span class="card-icon">🔄</span>
+                        <h3>اتوپست</h3>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" id="autopost_enabled">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">⏱</span>
+                        <h3>فاصله جمع‌آوری</h3>
+                    </div>
+                    <select id="collection_interval" class="field">
+                        <option value="5">۵ دقیقه</option>
+                        <option value="10">۱۰ دقیقه</option>
+                        <option value="15">۱۵ دقیقه</option>
+                        <option value="30">۳۰ دقیقه</option>
+                        <option value="60">۶۰ دقیقه</option>
+                    </select>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">🖼</span>
+                        <h3>واترمارک</h3>
+                    </div>
+                    <p class="field-hint" id="watermark_status">وضعیت: —</p>
+                    <button class="btn-danger" onclick="removeWatermark()">🗑 حذف واترمارک</button>
+                </div>
+            </div>
+
+            <!-- Rubika Tab -->
+            <div id="tab-rubika" class="tab-panel">
+                <div class="card toggle-card">
+                    <div class="card-header">
+                        <span class="card-icon">🌐</span>
+                        <h3>اتصال به روبیکا</h3>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" id="rubika_enabled">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">🔑</span>
+                        <h3>توکن ربات روبیکا</h3>
+                    </div>
+                    <input type="password" id="rubika_token" class="field" placeholder="توکن ربات">
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">🆔</span>
+                        <h3>آیدی ادمین روبیکا</h3>
+                    </div>
+                    <input type="text" id="rubika_admin_id" class="field" placeholder="@username">
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">📺</span>
+                        <h3>کانال روبیکا</h3>
+                    </div>
+                    <input type="text" id="rubika_channel_id" class="field" placeholder="@channel">
+                </div>
+            </div>
+        </div>
+
+        <!-- Save -->
+        <div class="save-bar">
+            <button class="btn-primary" onclick="saveSettings()">💾 ذخیره تنظیمات</button>
+            <div id="save_status" class="save-status"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
