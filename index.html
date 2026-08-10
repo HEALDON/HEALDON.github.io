@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <title>Nether Agent</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Cinzel:wght@600;700&display=swap" rel="stylesheet" />
+  <script>
+    // GitHub Pages SPA redirect receiver
+    // If 404.html redirected us here with a hash like #/sources, convert it back to a real path
+    (function() {
+      var l = window.location;
+      if (l.hash && l.hash.startsWith('#/')) {
+        var hashPath = l.hash.substring(1); // Remove the #
+        var search = '';
+        var queryIndex = hashPath.indexOf('?');
+        if (queryIndex !== -1) {
+          search = hashPath.substring(queryIndex);
+          hashPath = hashPath.substring(0, queryIndex);
+        }
+        // Replace current URL: keep pathname, remove hash, use the path from hash
+        var newPath = l.pathname.replace(/\/$/, '') + hashPath;
+        l.replace(newPath + search);
+      }
+    })();
+  </script>
+  <script type="module" crossorigin src="/assets/index-DOTqnpNT.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/react-vendor-34mWvzJ0.js">
+  <link rel="stylesheet" crossorigin href="/assets/index-DCWhOrYH.css">
+</head>
+<body><div id="root"></div></body>
+</html>
