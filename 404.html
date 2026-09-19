@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Nether Agent</title>
+  <script>
+    // GitHub Pages 404 redirect trick
+    // Converts the current path to a hash-based route and redirects to index.html
+    var pathSegmentsToKeep = 1;
+
+    var l = window.location;
+    var path = l.pathname;
+    var hash = l.hash;
+
+    var segments = path.split('/').filter(Boolean);
+    var repoSegment = segments.length > 0 ? segments[0] : '';
+    var remainingPath = segments.slice(pathSegmentsToKeep).join('/');
+
+    var redirect = '/' + (repoSegment ? repoSegment + '/' : '') + '#' +
+      (remainingPath ? '/' + remainingPath : '/') +
+      (l.search || '') +
+      (hash || '');
+
+    l.replace(redirect);
+  </script>
+</head>
+<body>
+  <p>Redirecting...</p>
+</body>
+</html>
